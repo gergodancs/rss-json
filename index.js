@@ -13,13 +13,10 @@ function renderNews(news) {
 
 function renderItem(item){
     let box = document.createElement('div');
-
     let title = document.createElement('h1');
-
     let desc = document.createElement('p');
 
     title.innerText = item.tittle;
-
     desc.innerText = item.summary;
 
     box.append(tittle, desc);
