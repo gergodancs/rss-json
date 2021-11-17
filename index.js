@@ -1,3 +1,10 @@
+function trimDom(str) {
+    let parser = new DOMParser();
+    let doc = parser.parseFromString(str, "text/html");
+    let txt = doc.body.innerText;
+    return txt.substring(0, 255) + "...";
+}
+
 function readNews() {
     fetch("rss.json")
         .then((r) => r.json())
@@ -5,7 +12,7 @@ function readNews() {
 }
 
 function renderNews(news) {
-    let items = new.items;
+    let items = news.items;
     for (let item of items) {
         renderItem(item);
     }
@@ -13,13 +20,14 @@ function renderNews(news) {
 
 function renderItem(item){
     let box = document.createElement('div');
+    box.className = "article";
     let title = document.createElement('h1');
     let desc = document.createElement('p');
 
-    title.innerText = item.tittle;
-    desc.innerText = item.summary;
+    title.innerText = item.title;
+    desc.innerText = trimDom(item.summary);
 
-    box.append(tittle, desc);
+    box.append(title, desc);
     document.getElementById('rss').append(box);
 }
 
